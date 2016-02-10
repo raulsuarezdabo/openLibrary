@@ -28,9 +28,22 @@ class ViewController: UIViewController, UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        let url = NSURL(string: self.urls + searchBar.text!)
-        let datos: NSData? = NSData(contentsOfURL: url!)
-        self.textView.text = String(NSString(data: datos!, encoding:NSUTF8StringEncoding))
+        if Reachability.isConnectedToNetwork() == true {
+            self.view.endEditing(true)
+            let url = NSURL(string: self.urls + searchBar.text!)
+            let datos: NSData? = NSData(contentsOfURL: url!)
+            self.textView.text = String(NSString(data: datos!, encoding:NSUTF8StringEncoding))
+        }
+        else {
+            self.showAlert("No internet conection", message: "Sorry :( it's impossible to make this request without internet conection")
+        }
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: nil)
+        alertController.addAction(defaultAction)
+        presentViewController(alertController, animated: true, completion: nil)
     }
 
     @IBAction func clearSearch() {
