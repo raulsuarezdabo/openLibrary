@@ -19,6 +19,10 @@ class ViewController: UIViewController, UISearchBarDelegate {
     
     @IBOutlet weak var authorsLabel: UILabel!
     
+    @IBOutlet weak var image: UIImageView!
+    
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -43,17 +47,35 @@ class ViewController: UIViewController, UISearchBarDelegate {
                     dispatch_sync(dispatch_get_main_queue(), {
                         let isbn =  self.search.text!
                         let title = dictionary["ISBN:\(isbn)"]!!["title"] as! NSString as String
-                        self.titleLabel.text = title
+                        self.titleLabel.text = "Title: \(title)"
                         let authors = dictionary["ISBN:\(isbn)"]!!["authors"] as! NSArray as Array
                         var authorsText = ""
+                        var i = 0
                         for item in authors {
                             let name = item["name"] as! NSString as String
-                            authorsText = authorsText + "\(name),"
+                            if (i == 0) {
+                                authorsText = authorsText + "\(name)"
+                            }
+                            else {
+                                authorsText = authorsText + ",\(name)"
+                            }
+                            i++
                         }
-                        self.authorsLabel.text = authorsText
-                        
-                        //let cover = dictionary["ISBN:\(isbn)"]!!["cover"]!!["small"] as! NSString as String
-                        //print(cover)
+                        self.authorsLabel.text = "Author/s: \(authorsText)"
+                        if ((dictionary["ISBN:\(isbn)"]!!["cover"]! != nil) && (dictionary["ISBN:\(isbn)"]!!["cover"]!!["small"]! != nil)) {
+                            let coverUrl = NSURL(string: dictionary["ISBN:\(isbn)"]!!["cover"]!!["small"] as! NSString as String)
+                            
+                            let sesion = NSURLSession.sharedSession();
+                            let getCover = {(datos: NSData?, resp: NSURLResponse?, error: NSError?) -> Void in
+                                do {
+                                    dispatch_sync(dispatch_get_main_queue(), {
+                                        self.image.image = UIImage(data: datos!)
+                                    })
+                                } catch _ as NSError {}
+                            }
+                            let dt = sesion.dataTaskWithURL(coverUrl!, completionHandler: getCover)
+                            dt.resume()
+                        }
                     })
                     
                 } catch _ as NSError {

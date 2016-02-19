@@ -53,6 +53,9 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H3z-ao-Mca">
+                                <rect key="frame" x="282" y="352" width="36" height="58"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -70,6 +73,7 @@
                     </view>
                     <connections>
                         <outlet property="authorsLabel" destination="e5Q-Sj-ID8" id="2nu-mV-x11"/>
+                        <outlet property="image" destination="H3z-ao-Mca" id="bcj-Kx-lbU"/>
                         <outlet property="search" destination="6Uu-2h-WUv" id="I1z-fS-Gta"/>
                         <outlet property="searchDisplayController" destination="R2Z-zG-Y6z" id="4Jq-zQ-mYF"/>
                         <outlet property="titleLabel" destination="A0c-SP-vLX" id="Mg3-cv-6u5"/>
