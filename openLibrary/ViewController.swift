@@ -12,9 +12,12 @@ class ViewController: UIViewController, UISearchBarDelegate {
     
     let urls = "https://openlibrary.org/api/books?jscmd=data&format=json&bibkeys=ISBN:"
 
-    @IBOutlet weak var textView: UITextView!
     // Search argument
     @IBOutlet weak var search: UISearchBar!
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    @IBOutlet weak var authorsLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,9 +33,38 @@ class ViewController: UIViewController, UISearchBarDelegate {
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         if Reachability.isConnectedToNetwork() == true {
             self.view.endEditing(true)
+            
             let url = NSURL(string: self.urls + searchBar.text!)
-            let datos: NSData? = NSData(contentsOfURL: url!)
-            self.textView.text = String(NSString(data: datos!, encoding:NSUTF8StringEncoding))
+            
+            let sesion = NSURLSession.sharedSession();
+            let bloque = {(datos: NSData?, resp: NSURLResponse?, error: NSError?) -> Void in
+                do {
+                    let dictionary = try NSJSONSerialization.JSONObjectWithData(datos!, options: NSJSONReadingOptions.MutableContainers)
+                    dispatch_sync(dispatch_get_main_queue(), {
+                        let isbn =  self.search.text!
+                        let title = dictionary["ISBN:\(isbn)"]!!["title"] as! NSString as String
+                        self.titleLabel.text = title
+                        let authors = dictionary["ISBN:\(isbn)"]!!["authors"] as! NSArray as Array
+                        var authorsText = ""
+                        for item in authors {
+                            let name = item["name"] as! NSString as String
+                            authorsText = authorsText + "\(name),"
+                        }
+                        self.authorsLabel.text = authorsText
+                        
+                        //let cover = dictionary["ISBN:\(isbn)"]!!["cover"]!!["small"] as! NSString as String
+                        //print(cover)
+                    })
+                    
+                } catch _ as NSError {
+                    self.showAlert("Unexpected error", message: "Sorry :( but it looks that we get some kind of error from the API")
+                }
+                
+            }
+            
+            let dt = sesion.dataTaskWithURL(url!, completionHandler: bloque)
+            dt.resume()
+            
         }
         else {
             self.showAlert("No internet conection", message: "Sorry :( it's impossible to make this request without internet conection")
@@ -49,6 +81,15 @@ class ViewController: UIViewController, UISearchBarDelegate {
     @IBAction func clearSearch() {
         self.search.text = ""
     }
+    
+    /*func upToRepresentation(dictionary: NSDictionary, isbn: String) {
+        let title = dictionary["ISBN:\(isbn)"]!["title"] as! NSString as String
+        let authors = dictionary["ISBN:\(isbn)"]!["authors"] as! NSArray as Array
+        for item in authors {
+            print(item["name"] as NSString)
+        }
+        
+    }*/
 
     
 }

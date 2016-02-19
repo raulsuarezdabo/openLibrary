@@ -33,30 +33,46 @@
                                     <action selector="clearSearch" destination="BYZ-38-t0r" eventType="touchDown" id="eCG-Vl-5M4"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8nf-b0-8Ja">
-                                <rect key="frame" x="20" y="95" width="551" height="485"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A0c-SP-vLX">
+                                <rect key="frame" x="20" y="114" width="551" height="61"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="551" id="3t2-Ia-e0F"/>
+                                    <constraint firstAttribute="height" constant="61" id="iqM-V8-ILY"/>
+                                </constraints>
+                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="---" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e5Q-Sj-ID8">
+                                <rect key="frame" x="20" y="212" width="551" height="61"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="61" id="Bgj-P1-Z6C"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="8nf-b0-8Ja" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-4.5" id="5Dn-26-Z6P"/>
-                            <constraint firstItem="8nf-b0-8Ja" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="37.5" id="8uD-F1-NlH"/>
                             <constraint firstItem="6Uu-2h-WUv" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="KVp-bq-tK7"/>
                             <constraint firstAttribute="trailingMargin" secondItem="dfO-BR-zEa" secondAttribute="trailing" constant="9" id="LPd-Qm-cnk"/>
                             <constraint firstItem="dfO-BR-zEa" firstAttribute="centerY" secondItem="6Uu-2h-WUv" secondAttribute="centerY" id="ZEU-f9-QlI"/>
+                            <constraint firstItem="A0c-SP-vLX" firstAttribute="top" secondItem="6Uu-2h-WUv" secondAttribute="bottom" constant="42" id="efK-xY-d6P"/>
+                            <constraint firstItem="e5Q-Sj-ID8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="-4.5" id="fDh-wV-0sX"/>
                             <constraint firstItem="6Uu-2h-WUv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-6" id="keS-Bw-UzX"/>
                             <constraint firstItem="dfO-BR-zEa" firstAttribute="leading" secondItem="6Uu-2h-WUv" secondAttribute="trailing" constant="5" id="mac-t8-Uwk"/>
-                            <constraint firstItem="8nf-b0-8Ja" firstAttribute="trailing" secondItem="dfO-BR-zEa" secondAttribute="trailing" id="vC4-sN-EIK"/>
-                            <constraint firstAttribute="bottom" secondItem="8nf-b0-8Ja" secondAttribute="bottom" constant="20" symbolic="YES" id="xPP-Td-4dT"/>
+                            <constraint firstItem="e5Q-Sj-ID8" firstAttribute="top" secondItem="A0c-SP-vLX" secondAttribute="bottom" constant="37" id="nba-fe-TU1"/>
+                            <constraint firstItem="A0c-SP-vLX" firstAttribute="leading" secondItem="e5Q-Sj-ID8" secondAttribute="leading" id="pn2-ix-nlw"/>
+                            <constraint firstItem="e5Q-Sj-ID8" firstAttribute="centerX" secondItem="A0c-SP-vLX" secondAttribute="centerX" id="rm1-pE-0yd"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="authorsLabel" destination="e5Q-Sj-ID8" id="2nu-mV-x11"/>
                         <outlet property="search" destination="6Uu-2h-WUv" id="I1z-fS-Gta"/>
                         <outlet property="searchDisplayController" destination="R2Z-zG-Y6z" id="4Jq-zQ-mYF"/>
-                        <outlet property="textView" destination="8nf-b0-8Ja" id="fVc-cN-dZV"/>
+                        <outlet property="titleLabel" destination="A0c-SP-vLX" id="Mg3-cv-6u5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
